@@ -1,0 +1,352 @@
+# 推論時のconfigであることを指定
+phase: predict
+
+# primary_key
+primary_key:
+  - primary_key
+
+# random_state
+random_state: 0
+
+# cross validationのn_splits
+n_splits: 4
+
+# 予測対象の列
+pred_cols:
+  - aroma
+  - flavor
+  - aftertaste
+  - acidity
+  - body
+  - balance
+  - uniformity
+  - clean_cup
+  - sweetness
+  - cupper_points
+  - total_cup_points
+
+# 100が多い目的変数
+one_hundred_pred_cols:
+  - uniformity
+  - clean_cup
+  - sweetness
+
+# 100が多い目的変数について切り上げる閾値
+ceil_value : 40
+
+# 元データをそのまま使う列
+origin_cols:
+  - species
+  - owner
+  - company
+  - region
+  - in_country_partner
+  - owner1
+  - variety
+  - processing_method
+  - color
+  - category_one_defects
+  - category_two_defects
+  - quakers
+  - numberof_bags
+  - unit_of_measurement
+  - moisture
+
+# 学習用とテスト用で重複しているデータがなく学習に寄与しない列
+useless_cols:
+  - farm_name
+  - lot_number
+  - ico_number
+  - mill
+  - producer
+  - altitude
+
+# altitudeの列情報
+altitude_cols:
+  - altitude_low_meters
+  - altitude_high_meters
+  - altitude_mean_meters
+
+# OrdinalEncodingのターゲット
+ordinal_encoding_target_cols:
+  - variety
+  - region
+  - color
+  - countryof_origin
+  - processing_method
+
+# CountEncodingのターゲット
+count_encoding_target_cols:
+  - species
+  - owner
+  - countryof_origin
+  - world_region
+  - company
+  - in_country_partner
+  - owner1
+  - variety
+  - processing_method
+  - color
+
+# GroupEncoding
+group_encoding_cols:
+  methods:
+    - min
+    - max
+    - mean
+    - std
+    - median
+  group_keys:
+    # - countryof_origin
+    - world_region
+    - company
+    # - in_country_partner
+    # - processing_method
+  target_cols:
+    - altitude_mean_meters_m
+    - numberof_bags
+    - bag_weight_g
+    - total_weight_g
+    - grading_date_julian
+    - expiration_julian
+    - moisture
+    - harvest_year
+    - category_one_defects
+    - category_two_defects
+
+# 特徴量
+feature_columns:
+  # ----- primary_key_columns -----
+  primary_key: category
+  # ----- feature_columns -----
+  species: category
+  owner: category
+  company: category
+  region: category
+  in_country_partner: category
+  owner1: category
+  variety: category
+  processing_method: category
+  color: category
+  category_one_defects: int32
+  category_two_defects: int32
+  quakers: float64
+  numberof_bags: int32
+  unit_of_measurement: category
+  moisture: float64
+  countryof_origin: category
+  moisture: float64
+  world_region: category
+  altitude_low_meters_m: float64
+  altitude_high_meters_m: float64
+  altitude_mean_meters_m: float64
+  numberof_bags_100: int32
+  numberof_bags_010: int32
+  numberof_bags_001: int32
+  bag_weight_unit: category
+  bag_weight_g: float64
+  bag_weight_log_g: float64
+  harvest_year: category
+  grading_date_julian: float64
+  grading_date_year: category
+  grading_date_month: category
+  grading_date_day: category
+  expiration_julian: float64
+  expiration_year: category
+  expiration_month: category
+  expiration_day: category
+  moisture_010: int32
+  category_one_and_two_defects: int32
+  diff_hervest_grading_year: float64
+  diff_hervest_expiration_year: float64
+  diff_grading_expiration_year: int32
+  total_weight_g: float64
+  total_weight_log_g: float64
+  CE_species: int32
+  CE_owner: int32
+  CE_countryof_origin: int32
+  CE_world_region: int32
+  CE_company: int32
+  CE_in_country_partner: int32
+  CE_owner1: int32
+  CE_variety: int32
+  CE_processing_method: int32
+  CE_color: int32
+  agg_min_world_region_by_altitude_mean_meters_m: float64
+  agg_max_world_region_by_altitude_mean_meters_m: float64
+  agg_mean_world_region_by_altitude_mean_meters_m: float64
+  agg_std_world_region_by_altitude_mean_meters_m: float64
+  agg_median_world_region_by_altitude_mean_meters_m: float64
+  agg_min_world_region_by_numberof_bags: float64
+  agg_max_world_region_by_numberof_bags: float64
+  agg_mean_world_region_by_numberof_bags: float64
+  agg_std_world_region_by_numberof_bags: float64
+  agg_median_world_region_by_numberof_bags: float64
+  agg_min_world_region_by_bag_weight_g: float64
+  agg_max_world_region_by_bag_weight_g: float64
+  agg_mean_world_region_by_bag_weight_g: float64
+  agg_std_world_region_by_bag_weight_g: float64
+  agg_median_world_region_by_bag_weight_g: float64
+  agg_min_world_region_by_total_weight_g: float64
+  agg_max_world_region_by_total_weight_g: float64
+  agg_mean_world_region_by_total_weight_g: float64
+  agg_std_world_region_by_total_weight_g: float64
+  agg_median_world_region_by_total_weight_g: float64
+  agg_min_world_region_by_grading_date_julian: float64
+  agg_max_world_region_by_grading_date_julian: float64
+  agg_mean_world_region_by_grading_date_julian: float64
+  agg_std_world_region_by_grading_date_julian: float64
+  agg_median_world_region_by_grading_date_julian: float64
+  agg_min_world_region_by_expiration_julian: float64
+  agg_max_world_region_by_expiration_julian: float64
+  agg_mean_world_region_by_expiration_julian: float64
+  agg_std_world_region_by_expiration_julian: float64
+  agg_median_world_region_by_expiration_julian: float64
+  agg_min_world_region_by_moisture: float64
+  agg_max_world_region_by_moisture: float64
+  agg_mean_world_region_by_moisture: float64
+  agg_std_world_region_by_moisture: float64
+  agg_median_world_region_by_moisture: float64
+  agg_min_world_region_by_harvest_year: float64
+  agg_max_world_region_by_harvest_year: float64
+  agg_mean_world_region_by_harvest_year: float64
+  agg_std_world_region_by_harvest_year: float64
+  agg_median_world_region_by_harvest_year: float64
+  agg_min_world_region_by_category_one_defects: float64
+  agg_max_world_region_by_category_one_defects: float64
+  agg_mean_world_region_by_category_one_defects: float64
+  agg_std_world_region_by_category_one_defects: float64
+  agg_median_world_region_by_category_one_defects: float64
+  agg_min_world_region_by_category_two_defects: float64
+  agg_max_world_region_by_category_two_defects: float64
+  agg_mean_world_region_by_category_two_defects: float64
+  agg_std_world_region_by_category_two_defects: float64
+  agg_median_world_region_by_category_two_defects: float64
+  agg_min_company_by_altitude_mean_meters_m: float64
+  agg_max_company_by_altitude_mean_meters_m: float64
+  agg_mean_company_by_altitude_mean_meters_m: float64
+  agg_std_company_by_altitude_mean_meters_m: float64
+  agg_median_company_by_altitude_mean_meters_m: float64
+  agg_min_company_by_numberof_bags: float64
+  agg_max_company_by_numberof_bags: float64
+  agg_mean_company_by_numberof_bags: float64
+  agg_std_company_by_numberof_bags: float64
+  agg_median_company_by_numberof_bags: float64
+  agg_min_company_by_bag_weight_g: float64
+  agg_max_company_by_bag_weight_g: float64
+  agg_mean_company_by_bag_weight_g: float64
+  agg_std_company_by_bag_weight_g: float64
+  agg_median_company_by_bag_weight_g: float64
+  agg_min_company_by_total_weight_g: float64
+  agg_max_company_by_total_weight_g: float64
+  agg_mean_company_by_total_weight_g: float64
+  agg_std_company_by_total_weight_g: float64
+  agg_median_company_by_total_weight_g: float64
+  agg_min_company_by_grading_date_julian: float64
+  agg_max_company_by_grading_date_julian: float64
+  agg_mean_company_by_grading_date_julian: float64
+  agg_std_company_by_grading_date_julian: float64
+  agg_median_company_by_grading_date_julian: float64
+  agg_min_company_by_expiration_julian: float64
+  agg_max_company_by_expiration_julian: float64
+  agg_mean_company_by_expiration_julian: float64
+  agg_std_company_by_expiration_julian: float64
+  agg_median_company_by_expiration_julian: float64
+  agg_min_company_by_moisture: float64
+  agg_max_company_by_moisture: float64
+  agg_mean_company_by_moisture: float64
+  agg_std_company_by_moisture: float64
+  agg_median_company_by_moisture: float64
+  agg_min_company_by_harvest_year: float64
+  agg_max_company_by_harvest_year: float64
+  agg_mean_company_by_harvest_year: float64
+  agg_std_company_by_harvest_year: float64
+  agg_median_company_by_harvest_year: float64
+  agg_min_company_by_category_one_defects: float64
+  agg_max_company_by_category_one_defects: float64
+  agg_mean_company_by_category_one_defects: float64
+  agg_std_company_by_category_one_defects: float64
+  agg_median_company_by_category_one_defects: float64
+  agg_min_company_by_category_two_defects: float64
+  agg_max_company_by_category_two_defects: float64
+  agg_mean_company_by_category_two_defects: float64
+  agg_std_company_by_category_two_defects: float64
+  agg_median_company_by_category_two_defects: float64
+
+# lgbのハイパーパラメータ
+lgb_hyper_params:
+  metric: mae
+  objective: regression
+  learning_rate: 0.01
+  num_leaves: 256
+  min_data_in_leaf: 10
+  max_depth: 5
+  bagging_fraction: 0.7
+  feature_fraction: 0.7
+  lambda_l1: 5
+  lambda_l2: 5
+  random_state: 42
+  verbose: -1
+
+# lgb学習時のパラメータ
+lgb_train_config:
+  num_iterations: 5000
+  verbose_eval: 1000
+  early_stopping: 100
+  category_cols:
+    - species
+    - owner
+    - company
+    - region
+    - in_country_partner
+    - owner1
+    - variety
+    - processing_method
+    - color
+    - unit_of_measurement
+    - countryof_origin
+    - world_region
+    - bag_weight_unit
+    - harvest_year
+    - grading_date_year
+    - grading_date_month
+    - grading_date_day
+    - expiration_year
+    - expiration_month
+    - expiration_day
+
+# Catboost
+
+# SaveModelで用いるクエリパス
+save_model_path: src/modules/cut_prd/input/
+
+# DatamartCreatorで用いるクエリパス
+# TODO: createについてはtrainと内容が変わらないので、テーブル名も引数にとってtrain用とsim用のテーブルを分けるようにしたい
+create_query_path_list:
+  -  src/modules/teijo_prd/model/query/create/create_prod_master.sql
+  -  src/modules/teijo_prd/model/query/create/create_teijo_target_items.sql
+  -  src/modules/teijo_prd/model/query/create/create_fm_zantei_hatchu.sql
+  -  src/modules/teijo_prd/model/query/create/create_clean_dm_base.sql
+  -  src/modules/teijo_prd/model/query/create/create_clean_dm.sql
+  -  src/modules/teijo_prd/model/query/create/create_yosoku_log.sql
+
+insert_query_path_list:
+  -  src/modules/teijo_prd/model/query/insert/insert_prod_master.sql  
+  -  src/modules/teijo_prd/model/query/insert/insert_teijo_target_items_sim.sql
+  -  src/modules/teijo_prd/model/query/insert/insert_fm_zantei_hatchu_from202003.sql
+  -  src/modules/teijo_prd/model/query/insert/insert_clean_dm_base_sim.sql
+  -  src/modules/teijo_prd/model/query/insert/insert_clean_dm.sql
+
+# DataLoaderで用いるクエリパス
+dataloader_query_paths:
+  df_base: src/modules/teijo_prd/model/query/read/read_clean_dm.sql
+  holidays: src/modules/teijo_prd/model/query/read/read_japan_holidays.sql
+
+datamart_config:
+  datamart_name: itc_dm_teijo
+  datamart_common_name: itc_dm_common
+  lake_ac_name: AC_FORECAST_STG.ITC_LAKE_AC
+  lake_dcm_host_name: AC_FORECAST_STG.ITC_LAKE_DCM_HOST
+  lake_dcm_web_name: AC_FORECAST_STG.ITC_LAKE_DCM_WEB
+  center_name_unified:  (浦安, 日野, 千葉中央, 相模原, 名古屋, 阪南, 鳥栖, 香川, 北埼玉, 越谷, 青森, 福島, 新潟, 京都八幡, 摂津, 福岡, 北陸, 静岡, 新居浜)
+  flow_id: 20210320-202020
