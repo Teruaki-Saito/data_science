@@ -4,3 +4,6 @@
 - git branch nameを表示させる方法：https://gimmicklog.com/tool/1377/
 - open ~/.bashrc
 - open ~/.bash_profile
+
+## git ssh
+- open ~/.ssh
