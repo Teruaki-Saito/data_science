@@ -1,9 +1,0 @@
-# ignore csv
-*.csv
-
-# ignore zip
-*.zip
-
-# ignore jpeg
-*.jpeg
-*.jpg
