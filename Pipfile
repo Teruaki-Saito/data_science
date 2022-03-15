@@ -1,0 +1,32 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+certifi = "==2019.11.28"
+scikit-learn = "*"
+openpyxl = "*"
+pandas = "*"
+numpy = "*"
+tqdm = "*"
+jupyterlab = "*"
+matplotlib = "*"
+seaborn = "*"
+plotly = "*"
+xlsxwriter = "*"
+optuna = "*"
+pandas-profiling = "*"
+ipywidgets = "*"
+pygam = "*"
+ptitprince = "*"
+matplotlib-venn = "*"
+sweetviz = "*"
+lightgbm = "*"
+catboost = "*"
+xgboost = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
