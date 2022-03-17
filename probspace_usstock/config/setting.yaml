@@ -1,0 +1,118 @@
+# 推論時のconfigであることを指定
+phase: predict
+
+# primary_key
+primary_key:
+  - Date
+  - Symbol
+
+# random_state
+random_state: 0
+
+# 予測対象の列
+pred_cols: stock_price
+
+# Listが重複しているSymbol
+duplicate_companies:
+  NASDAQ_NYSE:
+    - AMBC
+    - AMOV
+    - CNMD
+    - EGHT
+    - GOLD
+    - INFO
+    - MSG
+    - NCLH
+    - PGTI
+    - PRMW
+    - QGEN
+    - RRD
+    - SAVE
+    - UNFI
+  NASDAQ_AMEX:
+    - CDOR
+    - LLEX
+
+# train, val, test期間の分割
+train_period: ['2011-11-13', '2018-12-31']
+valid_period: ['2019-01-01', '2019-11-10']
+test_period: ['2019-11-11', '2019-11-24']
+
+# 特徴量
+feature_columns:
+  # ----- primary_key_columns -----
+  Date: category
+  Symbol: category
+  # ----- feature_columns -----
+  List: category
+  # stock_price: float16
+  IPOyear: category
+  # Sector: category
+  # year: category
+  month: category
+  # day: category
+  week_of_month: category
+  week_of_year: category
+  stock_price_1s: float16
+  stock_price_2s: float16
+  stock_price_3s: float16
+  stock_price_4s: float16
+  increase_stock_price_1s2s: int8
+  increase_stock_price_2s3s: int8
+  increase_stock_price_3s4s: int8
+  stock_price_1s_4r_mean: float16
+  stock_price_1s_4r_median: float16
+  stock_price_1s_4r_max: float16
+  stock_price_1s_4r_min: float16
+  stock_price_1s_8r_mean: float16
+  stock_price_1s_8r_median: float16
+  stock_price_1s_8r_max: float16
+  stock_price_1s_8r_min: float16
+  stock_price_1s_12r_mean: float16
+  stock_price_1s_12r_median: float16
+  stock_price_1s_12r_max: float16
+  stock_price_1s_12r_min: float16
+  # stock_price_log1p: float16
+  # stock_price_log1p_1s: float16
+  # stock_price_log1p_diff: float16
+  # stock_price_log1p_diff_1s: float16
+  # stock_price_log1p_diff_2s: float16
+  # stock_price_log1p_diff_1s_4r: float16
+  # stock_price_log1p_diff_1s_8r: float16
+  # stock_price_log1p_diff_1s_12r: float16
+  # stock_price_log1p_diff_1s_4r_med: float16
+  # stock_price_log1p_diff_1s_8r_med: float16
+  # stock_price_log1p_diff_1s_12r_med: float16
+  # stock_price_log1p_diff_1s_List_mean: float16
+  # stock_price_log1p_diff_1s_List_med: float16
+
+# log1pdiffを元の株価に戻すために必要な列
+columns_for_calc_origin_stock_price:
+  - stock_price_log1p_diff_1s
+
+# lgbのハイパーパラメータ
+lgb_hyper_params:
+  metric: rmse
+  objective: regression
+  learning_rate: 0.01
+  num_leaves: 40
+  min_data_in_leaf: 10
+  max_depth: 7
+  bagging_fraction: 0.7
+  feature_fraction: 0.7
+  lambda_l1: 5
+  lambda_l2: 5
+  random_state: 42
+  verbose: -1
+
+# lgb学習時のパラメータ
+lgb_train_config:
+  num_iterations: 5000
+  verbose_eval: 1000
+  early_stopping: 100
+  category_cols:
+    - List
+    - IPOyear
+    - month
+    - week_of_month
+    - week_of_year
