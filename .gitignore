@@ -10,3 +10,6 @@
 
 # ignore ipynb_checkpoints
 *.ipynb_checkpoints
+
+# ignore pickle
+*.pickle
