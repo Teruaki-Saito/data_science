@@ -25,6 +25,7 @@ sweetviz = "*"
 lightgbm = "*"
 catboost = "*"
 xgboost = "*"
+ta-lib = "*"
 
 [dev-packages]
 
