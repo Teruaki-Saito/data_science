@@ -26,6 +26,7 @@ lightgbm = "*"
 catboost = "*"
 xgboost = "*"
 ta-lib = "*"
+statsmodels = "*"
 
 [dev-packages]
 
