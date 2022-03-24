@@ -1,0 +1,275 @@
+# 推論時のconfigであることを指定
+phase: predict
+
+# primary_key
+primary_key:
+  - Date
+  - Symbol
+
+# random_state
+random_state: 0
+
+# 予測対象の列
+# pred_cols: stock_price
+pred_cols: residual
+
+# Listが重複しているSymbol
+duplicate_companies:
+  NASDAQ_NYSE:
+    - AMBC
+    - AMOV
+    - CNMD
+    - EGHT
+    - GOLD
+    - INFO
+    - MSG
+    - NCLH
+    - PGTI
+    - PRMW
+    - QGEN
+    - RRD
+    - SAVE
+    - UNFI
+  NASDAQ_AMEX:
+    - CDOR
+    - LLEX
+
+# train, val, test期間の分割
+train_period: ['2011-11-13', '2019-08-31']
+valid_period: ['2019-09-01', '2019-11-10']
+test_period: ['2019-11-11', '2019-11-24']
+
+# 特徴量
+feature_columns:
+  # ----- primary_key_columns -----
+  Date: category
+  Symbol: category
+  # ----- feature_columns -----
+  List: category
+  # stock_price: float16
+  IPOyear: float16
+  Sector: category
+  Industry: category
+  # year: int16
+  month: int16
+  # day: int16
+  week_of_month: int16
+  week_of_year: int16
+  # ----- stock_priceそのまま -----
+  # stock_price_1s: float16
+  # stock_price_2s: float16
+  # stock_price_3s: float16
+  # stock_price_4s: float16
+  # increase_stock_price_1s2s: int8
+  # increase_stock_price_2s3s: int8
+  # increase_stock_price_3s4s: int8
+  # stock_price_1s_4r_mean: float16
+  # stock_price_1s_4r_median: float16
+  # stock_price_1s_4r_max: float16
+  # stock_price_1s_4r_min: float16
+  # stock_price_1s_8r_mean: float16
+  # stock_price_1s_8r_median: float16
+  # stock_price_1s_8r_max: float16
+  # stock_price_1s_8r_min: float16
+  # stock_price_1s_12r_mean: float16
+  # stock_price_1s_12r_median: float16
+  # stock_price_1s_12r_max: float16
+  # stock_price_1s_12r_min: float16
+  # ----- stock_price_log1p -----
+  # stock_price_log1p_1s: float16
+  # stock_price_log1p_2s: float16
+  # stock_price_log1p_3s: float16
+  # stock_price_log1p_4s: float16
+  # increase_stock_price_log1p_1s2s: int8
+  # increase_stock_price_log1p_2s3s: int8
+  # increase_stock_price_log1p_3s4s: int8
+  # stock_price_log1p_1s_4r_mean: float16
+  # stock_price_log1p_1s_4r_median: float16
+  # stock_price_log1p_1s_4r_max: float16
+  # stock_price_log1p_1s_4r_min: float16
+  # stock_price_log1p_1s_8r_mean: float16
+  # stock_price_log1p_1s_8r_median: float16
+  # stock_price_log1p_1s_8r_max: float16
+  # stock_price_log1p_1s_8r_min: float16
+  # stock_price_log1p_1s_12r_mean: float16
+  # stock_price_log1p_1s_12r_median: float16
+  # stock_price_log1p_1s_12r_max: float16
+  # stock_price_log1p_1s_12r_min: float16
+  # ----- stock_price_log1p_diff -----
+  # stock_price_log1pRate_1s: float16
+  # stock_price_log1pRate_2s: float16
+  # stock_price_log1pRate_3s: float16
+  # stock_price_log1pRate_4s: float16
+  # stock_price_log1pRate_1s_4r_mean: float16
+  # stock_price_log1pRate_1s_4r_median: float16
+  # stock_price_log1pRate_1s_4r_max: float16
+  # stock_price_log1pRate_1s_4r_min: float16
+  # stock_price_log1pRate_1s_4r_std: float16
+  # stock_price_log1pRate_1s_8r_mean: float16
+  # stock_price_log1pRate_1s_8r_median: float16
+  # stock_price_log1pRate_1s_8r_max: float16
+  # stock_price_log1pRate_1s_8r_min: float16
+  # stock_price_log1pRate_1s_8r_std: float16
+  # stock_price_log1pRate_1s_12r_mean: float16
+  # stock_price_log1pRate_1s_12r_median: float16
+  # stock_price_log1pRate_1s_12r_max: float16
+  # stock_price_log1pRate_1s_12r_min: float16
+  # stock_price_log1pRate_1s_12r_std: float16
+  # stock_price_log1pRate_1s_24r_mean: float16
+  # stock_price_log1pRate_1s_24r_median: float16
+  # stock_price_log1pRate_1s_24r_max: float16
+  # stock_price_log1pRate_1s_24r_min: float16
+  # stock_price_log1pRate_1s_24r_std: float16
+  # stock_price_log1pRate_1s_36r_mean: float16
+  # stock_price_log1pRate_1s_36r_median: float16
+  # stock_price_log1pRate_1s_36r_max: float16
+  # stock_price_log1pRate_1s_36r_min: float16
+  # stock_price_log1pRate_1s_36r_std: float16
+  # stock_price_log1pRate_1s_List_mean: float16
+  # stock_price_log1pRate_1s_List_median: float16
+  # stock_price_log1pRate_1s_List_std: float16
+  # stock_price_log1pRate_2s_List_mean: float16
+  # stock_price_log1pRate_2s_List_median: float16
+  # stock_price_log1pRate_2s_List_std: float16
+  # stock_price_log1pRate_1s_Sector_mean: float16
+  # stock_price_log1pRate_1s_Sector_median: float16
+  # stock_price_log1pRate_1s_Sector_std: float16
+  # stock_price_log1pRate_2s_Sector_mean: float16
+  # stock_price_log1pRate_2s_Sector_median: float16
+  # stock_price_log1pRate_2s_Sector_std: float16
+  # stock_price_log1pRate_1s_Industry_mean: float16
+  # stock_price_log1pRate_1s_Industry_median: float16
+  # stock_price_log1pRate_1s_Industry_std: float16
+  # stock_price_log1pRate_2s_Industry_mean: float16
+  # stock_price_log1pRate_2s_Industry_median: float16
+  # stock_price_log1pRate_2s_Industry_std: float16
+  # ----- residual -----
+  trend_standard: float16
+  seasonality_standard: float16
+  residual_1s: float16
+  residual_2s: float16
+  residual_3s: float16
+  residual_4s: float16
+  residual_1s_4r_mean: float16
+  residual_1s_4r_median: float16
+  residual_1s_4r_max: float16
+  residual_1s_4r_min: float16
+  residual_1s_8r_mean: float16
+  residual_1s_8r_median: float16
+  residual_1s_8r_max: float16
+  residual_1s_8r_min: float16
+  residual_1s_12r_mean: float16
+  residual_1s_12r_median: float16
+  residual_1s_12r_max: float16
+  residual_1s_12r_min: float16
+  residual_1s_24r_mean: float16
+  residual_1s_24r_median: float16
+  residual_1s_24r_max: float16
+  residual_1s_24r_min: float16
+  residual_1s_53r_mean: float16
+  residual_1s_53r_median: float16
+  residual_1s_53r_max: float16
+  residual_1s_53r_min: float16
+  # residual_1s_List_mean: float16
+  # residual_1s_List_median: float16
+  # residual_1s_List_std: float16
+  # residual_2s_List_mean: float16
+  # residual_2s_List_median: float16
+  # residual_2s_List_std: float16
+  # residual_1s_Sector_mean: float16
+  # residual_1s_Sector_median: float16
+  # residual_1s_Sector_std: float16
+  # residual_2s_Sector_mean: float16
+  # residual_2s_Sector_median: float16
+  # residual_2s_Sector_std: float16
+  # residual_1s_Industry_mean: float16
+  # residual_1s_Industry_median: float16
+  # residual_1s_Industry_std: float16
+  # residual_2s_Industry_mean: float16
+  # residual_2s_Industry_median: float16
+  # residual_2s_Industry_std: float16
+  # ----- flg ------
+  # is_05_percentile_stock_price: int8
+  # is_95_percentile_stock_price: int8
+
+
+# model weight計算時に使用する列
+weight_column: stock_price_log1pRate_1s_4r_mean
+
+# lgbのハイパーパラメータ
+lgb_hyper_params:
+  metric: rmse
+  objective: regression
+  learning_rate: 0.01
+  min_data_in_leaf: 10
+  num_leaves: 63
+  max_depth: 7
+  bagging_fraction: 0.8
+  feature_fraction: 0.8
+  lambda_l1: 5
+  lambda_l2: 5
+  random_state: 42
+  verbose: -1
+
+# lgb学習時のパラメータ
+lgb_train_config:
+  num_iterations: 5000
+  verbose_eval: 1000
+  early_stopping: 100
+  category_cols:
+    - List
+    - Sector
+    - Industry
+    # - IPOyear
+    # - month
+    # - week_of_month
+    # - week_of_year
+
+# optunaのパラメータ
+lgb_optuna_config:
+  verbose_eval: 1000
+  early_stopping_rounds: 100
+  fixed_params:
+    boosting_type: gbdt
+    objective: regression
+    metric: rmse
+    verbosity: -1
+
+
+# cat
+cat_hyper_params:
+  loss_function: RMSE
+  num_boost_round: 5000
+  early_stopping_rounds: 100
+  verbose: -1
+  depth: 6
+  learning_rate: 0.03
+
+cat_train_config:
+  verbose: 1000
+  plot: False  # plotlyが描画される
+  cat_features:
+    - List
+    - Sector
+    - Industry
+
+# xgboost
+xgb_hyper_params:
+  booster: gbtree
+  objective: reg:squarederror
+  eval_metric: rmse
+  eta: 0.3  # default=0.3
+  max_depth: 6  # default=6
+  min_child_weight: 1  # default=1
+  gamma: 0.0  # default=0
+  colsample_bytree: 0.8  # default=1
+  subsample: 0.8  # default=1
+  alpha: 0  # default=0
+  lambda: 1  # default=1
+  random_state: 0
+
+xgb_train_config:
+  num_boost_round: 5000
+  early_stopping_rounds: 100
+  enable_categorical: True
+  verbose_eval: 1000
