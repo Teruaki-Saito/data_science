@@ -1,0 +1,210 @@
+# 推論時のconfigであることを指定
+phase: predict
+
+# PATH
+input_path: ../input/
+output_path: ../output/
+
+# primary_key
+primary_key:
+  id: int16
+
+# n_splits
+n_splits: 5
+
+# random_state
+random_state: 0
+
+# 予測対象の列
+target: log1p_y
+
+# publishedのリネーム
+published_rename_dict:
+  所在地コード: 市区町村コード
+  建蔽率: 建ぺい率（％）
+  容積率: 容積率（％）
+  駅名: 最寄駅：名称
+  地積: 面積（㎡）
+  前面道路の幅員: 前面道路：幅員（ｍ）
+  前面道路の方位区分: 前面道路：方位
+  前面道路区分: 前面道路：種類
+  形状区分: 土地の形状
+  用途区分: 都市計画
+  用途: 地域
+
+# 特徴量
+feature_columns:
+  種類: category
+  地域: category
+  # 市区町村コード: int16
+  # 都道府県名: category
+  市区町村名: category
+  地区名: category
+  最寄駅：名称: category
+  最寄駅：距離（分）: float16
+  間取り: category
+  面積（㎡）: float16
+  土地の形状: category
+  間口: float16
+  延床面積（㎡）: float16
+  建築年: category
+  建物の構造: category
+  用途: category
+  今後の利用目的: category
+  前面道路：方位: category
+  前面道路：種類: category
+  前面道路：幅員（ｍ）: float16
+  都市計画: category
+  建ぺい率（％）: float16
+  容積率（％）: float16
+  取引時点: float16
+  改装: category
+  取引の事情等: category
+  create_間取り数: float16
+  create_間取りタイプ: category
+  create_部屋数: float16
+  create_年号: category
+  create_和暦年数: float16
+  建築年（西暦）: float16
+  create_地区詳細: category
+  create_is_市: int8
+  create_is_区: int8
+  create_is_町: int8
+  create_is_村: int8
+  create_is_SRC: int8
+  create_is_RC: int8
+  create_is_鉄骨造: int8
+  create_is_木造: int8
+  create_is_軽量鉄骨造: int8
+  create_is_ブロック造: int8
+  create_is_住宅: int8
+  create_is_共同住宅: int8
+  create_is_事務所: int8
+  create_is_店舗: int8
+  create_is_その他: int8
+  create_is_倉庫: int8
+  create_is_駐車場: int8
+  create_is_作業場: int8
+  create_is_工場: int8
+  create_is_私道を含む取引: int8
+  create_is_隣地の購入: int8
+  create_is_関係者間取引: int8
+  create_is_調停・競売等: int8
+  create_is_その他事情有り: int8
+  create_is_瑕疵有りの可能性: int8
+  create_is_古屋付き・取壊し前提: int8
+  create_is_他の権利・負担付き: int8
+  create_階数: float16
+  create_間口面積割合: float16
+  create_1部屋面積: float16
+
+
+# model weight計算時に使用する列
+weight_column: log1p_y
+
+# lgbのハイパーパラメータ
+lgb_hyper_params:
+  metric: rmse
+  objective: regression
+  learning_rate: 0.01
+  min_data_in_leaf: 10
+  num_leaves: 63
+  max_depth: 7
+  bagging_fraction: 0.8
+  feature_fraction: 0.8
+  lambda_l1: 5
+  lambda_l2: 5
+  random_state: 42
+  verbose: -1
+
+# lgb_adversarial_validation_hyper_params
+AdversarialValidation:
+  target: AdvVal_y
+  lgb_hyper_params:
+    metric: auc
+    objective: binary
+    learning_rate: 0.01
+    min_data_in_leaf: 10
+    num_leaves: 63
+    max_depth: 7
+    bagging_fraction: 0.8
+    feature_fraction: 0.8
+    lambda_l1: 5
+    lambda_l2: 5
+    random_state: 42
+    verbose: -1
+
+# lgb学習時のパラメータ
+lgb_train_config:
+  num_iterations: 20000
+  verbose_eval: 1000
+  early_stopping: 100
+  category_cols:
+    - 種類
+    - 地域
+    - 市区町村名
+    - 地区名
+    - 最寄駅：名称
+    - 間取り
+    - 土地の形状
+    - 建築年
+    - 建物の構造
+    - 用途
+    - 今後の利用目的
+    - 前面道路：方位
+    - 前面道路：種類
+    - 都市計画
+    - 改装
+    - 取引の事情等
+    - create_間取りタイプ
+    - create_年号
+    - create_地区詳細
+
+# optunaのパラメータ
+lgb_optuna_config:
+  verbose_eval: 1000
+  early_stopping_rounds: 100
+  fixed_params:
+    boosting_type: gbdt
+    objective: regression
+    metric: rmse
+    verbosity: -1
+
+
+# cat
+cat_hyper_params:
+  loss_function: RMSE
+  num_boost_round: 5000
+  early_stopping_rounds: 100
+  verbose: -1
+  depth: 6
+  learning_rate: 0.03
+
+cat_train_config:
+  verbose: 1000
+  plot: False  # plotlyが描画される
+  cat_features:
+    - List
+    - Sector
+    - Industry
+
+# xgboost
+xgb_hyper_params:
+  booster: gbtree
+  objective: reg:squarederror
+  eval_metric: rmse
+  eta: 0.3  # default=0.3
+  max_depth: 6  # default=6
+  min_child_weight: 1  # default=1
+  gamma: 0.0  # default=0
+  colsample_bytree: 0.8  # default=1
+  subsample: 0.8  # default=1
+  alpha: 0  # default=0
+  lambda: 1  # default=1
+  random_state: 0
+
+xgb_train_config:
+  num_boost_round: 5000
+  early_stopping_rounds: 100
+  enable_categorical: True
+  verbose_eval: 1000
