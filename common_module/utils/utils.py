@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pickle
 
 
 def reduce_mem_usage(df):
@@ -39,3 +40,33 @@ def reduce_mem_usage(df):
     print('Decreased by {:.1f}%'.format(100 * (start_mem - end_mem) / start_mem))
 
     return df
+
+
+def save_pickle(object, file_name, file_path):
+    """
+    pickleで保存
+
+    Args：
+        obj ()：保存したいもの
+        name (str)：保存時の名前
+        path (str)：保存するパス
+    Returns：
+        None
+    """
+    with open(file_path + file_name, mode='wb') as f:
+        pickle.dump(object, f)
+    print("done")
+
+
+def load_pickle(file_name, file_path):
+    """
+    pickleのロード
+
+    Args：
+        name (str)：保存時の名前
+        path (str)：保存先のパス
+    Returns：
+        pickle.load(f)：ロードしたオブジェクト
+    """
+    with open(file_path + file_name, mode='rb') as f:
+        return pickle.load(f)
