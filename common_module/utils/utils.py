@@ -3,10 +3,11 @@ import pandas as pd
 import pickle
 
 
-def reduce_mem_usage(df):
+def reduce_mem_usage(df_):
     """ iterate through all the columns of a dataframe and modify the data type
         to reduce memory usage.        
     """
+    df = df_.copy()
     start_mem = df.memory_usage().sum() / 1024**2
     print('Memory usage of dataframe is {:.2f} MB'.format(start_mem))
 
