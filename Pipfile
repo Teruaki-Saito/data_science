@@ -27,6 +27,14 @@ catboost = "*"
 xgboost = "*"
 ta-lib = "*"
 statsmodels = "*"
+kaggle = "*"
+python-dotenv = "*"
+nltk = "*"
+textstat = "*"
+pytorch-lightning = "*"
+torch = "*"
+mlflow = "*"
+timm = "*"
 
 [dev-packages]
 
