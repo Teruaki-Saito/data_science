@@ -35,6 +35,9 @@ pytorch-lightning = "*"
 torch = "*"
 mlflow = "*"
 timm = "*"
+mip = "*"
+pulp = "*"
+mypulp = "*"
 
 [dev-packages]
 
